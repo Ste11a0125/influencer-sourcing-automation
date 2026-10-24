@@ -1,0 +1,23 @@
+{
+  "targetCountry": "United Kingdom",
+  "minFollowers": 1000,
+  "maxFollowers": 100000,
+  "maxProfilesPerRun": 15,
+  "targetPostsPerCreator": 20,
+  "minimumRelevantPosts": 5,
+  "maxSerpApiRequestsPerRun": 15,
+  "mode": "discovery",
+  "senderName": "",
+  "senderRole": "",
+  "approvedProductBrief": "Nous helps UK households manage insurance admin.",
+  "approvedProductFacts": [],
+  "queries": [
+    "site:instagram.com \"UK\" \"money saving\" \"blogger\"",
+    "site:instagram.com \"UK\" \"household bills\" \"tips\""
+  ],
+  "requireLatest20Posts": false,
+  "excludedUsernames": [
+    "avivauk",
+    "welcometouw"
+  ]
+}

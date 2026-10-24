@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Nous · Creator outreach</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f7f5ef;
+  --paper: #fffefa;
+  --ink: #1d1b18;
+  --muted: #686359;
+  --line: #ded9ce;
+  --accent: #ffe600;
+  --pale: #fff5ad;
+  --warn: #79600b;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink); background: var(--bg); }
+header { border-bottom: 1px solid var(--line); padding: 22px 4vw; display: flex; gap: 28px; align-items: center; background: var(--bg); }
+.brand { font-size: 42px; line-height: 1; letter-spacing: -2.5px; font-weight: 800; color: var(--ink); }
+.sub { font-size: 12px; color: var(--muted); }
+h1 { font-size: clamp(28px, 3.3vw, 44px); font-weight: 650; letter-spacing: -1.5px; line-height: 1.13; margin: 0 0 20px; }
+h1 span { color: var(--ink); }
+h2 { font-size: 19px; line-height: 1.3; letter-spacing: -.3px; margin: 0 0 10px; }
+h3 { font-size: 16px; margin: 0 0 8px; }
+p { margin: 8px 0 16px; }
+main { max-width: 1320px; margin: auto; padding: 42px 4vw; }
+.top { display: flex; justify-content: space-between; gap: 32px; align-items: center; margin-bottom: 28px; }
+.top > div:first-child { max-width: 720px; }
+.top .muted { max-width: 550px; }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+button, .button { background: var(--accent); color: #141311; border: 1px solid var(--accent); border-radius: 999px; padding: 11px 18px; font: inherit; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: background .15s, border-color .15s, color .15s; }
+button:hover, .button:hover { background: #fff16a; border-color: #fff16a; }
+button.secondary, .button.secondary { background: transparent; color: var(--ink); border-color: #b7b0a2; }
+button.secondary:hover, .button.secondary:hover { background: var(--pale); color: var(--ink); border-color: #a99c5d; }
+button:disabled { opacity: .5; cursor: wait; }
+:focus-visible { outline: 2px solid #786300; outline-offset: 4px; }
+nav { display: flex; gap: 30px; border-bottom: 1px solid var(--line); margin: 10px 0 28px; overflow: auto; }
+nav button { background: none; color: var(--muted); border: 0; border-bottom: 3px solid transparent; border-radius: 0; padding: 14px 0; white-space: nowrap; font-weight: 500; }
+nav button:hover { background: transparent; color: var(--ink); border-color: transparent; }
+nav button.active { color: var(--ink); border-bottom-color: var(--accent); }
+.metrics { display: flex; gap: 52px; padding: 28px 0; flex-wrap: wrap; }
+.metric strong { display: block; color: var(--ink); font-size: 32px; letter-spacing: -.8px; line-height: 1.2; font-weight: 600; }
+.metric span { display: block; margin-top: 6px; font-size: 12px; color: var(--muted); }
+.notice { padding: 16px 20px; background: var(--accent); color: #141311; border-radius: 14px; margin: 18px 0; font-size: 13px; }
+.redflag { border-left: 4px solid #ac2630; }
+.redflag-label { color: #9d1e28; font-weight: 650; }
+.warning { color: var(--warn); }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.row { background: var(--paper); padding: 26px; margin: 0 0 18px; border: 1px solid var(--line); border-radius: 18px; }
+.rowhead { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; }
+.badge { font-size: 11px; background: var(--pale); color: #4d420a; border: 1px solid #e0d27e; padding: 5px 10px; border-radius: 999px; white-space: normal; line-height: 1.5; }
+a { color: var(--ink); text-underline-offset: 3px; }
+a:hover { color: #806700; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+label { display: block; font-size: 13px; margin: 14px 0 6px; color: var(--muted); }
+input, textarea, select { width: 100%; font: inherit; padding: 11px 13px; border: 1px solid #c9c1b2; border-radius: 10px; background: #ffffff; color: var(--ink); }
+input::placeholder, textarea::placeholder { color: #777064; }
+input:focus, textarea:focus, select:focus { border-color: #8a7300; }
+textarea { min-height: 100px; resize: vertical; }
+input[type=checkbox] { width: auto; vertical-align: middle; margin-right: 7px; accent-color: var(--accent); }
+details { margin: 18px 0; }
+summary { cursor: pointer; font-weight: 600; }
+summary:hover { color: #806700; }
+.quote { border-left: 3px solid var(--accent); padding-left: 16px; white-space: pre-wrap; margin: 16px 0; color: #514d44; }
+.post { padding: 16px 0; border-top: 1px solid var(--line); }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.6 ui-monospace, monospace; background: var(--bg); padding: 16px; border-radius: 10px; }
+.empty { padding: 40px 0; max-width: 650px; }
+#toast { position: fixed; bottom: 20px; right: 20px; max-width: min(500px, calc(100vw - 40px)); background: var(--accent); color: #141311; padding: 16px 22px; border: 1px solid #141311; border-radius: 14px; display: none; z-index: 5; }
+#status { margin-left: auto; font-size: 12px; color: var(--muted); max-width: 260px; }
+.keyword-box { margin: 14px 0 22px; padding: 18px; border-radius: 12px; background: var(--bg); border: 1px solid var(--line); }
+.keyword-box .actions { gap: 8px; margin-top: 12px; }
+.keyword-box button { font-size: 13px; padding: 7px 13px; }
+.email { font-size: 19px; font-weight: 600; overflow-wrap: anywhere; }
+.draftbody { min-height: 300px; line-height: 1.7; }
+footer { color: var(--muted); font-size: 12px; margin-top: 36px; border-top: 1px solid var(--line); padding-top: 20px; }
+::selection { background: var(--accent); color: #141311; }
+@media (max-width: 750px) {
+  header { gap: 16px; padding: 20px 5vw; flex-wrap: wrap; }
+  .brand { font-size: 36px; }
+  #status { flex-basis: 100%; margin-left: 0; max-width: none; }
+  main { padding: 30px 5vw; }
+  .top, .rowhead { display: block; }
+  .top { margin-bottom: 24px; }
+  h1 { font-size: 30px; letter-spacing: -1px; }
+  .grid, .fields { grid-template-columns: 1fr; }
+  .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 18px; }
+  .actions { margin-top: 16px; }
+  nav { gap: 24px; }
+  .row { padding: 20px; border-radius: 14px; }
+  .badge { display: inline-block; margin-top: 10px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style></head><body>
+<header><div class="brand">nous</div><div><strong>Creator outreach</strong><div class="sub">UK · Insurance admin · Local workflow</div></div><div id="status">Loading…</div></header>
+<main><div class="top"><div><h1>Find the right creators.<br><span>Start a relevant conversation.</span></h1><p class="muted">Qualified profiles, public business emails and evidence-based collaboration drafts.</p></div><div class="actions"><button id="discover" onclick="run('discovery')">Run full workflow</button><button class="secondary" onclick="run('contact_lookup')">Process saved creators</button></div></div>
+<div class="notice"><strong>One run, all stages:</strong> discover → assess fit → find email → email draft, or Instagram message if no usable email is available. Review the finished drafts and send manually.</div><div id="progress" class="small muted" role="status"></div><details id="run-detail"><summary>Latest run breakdown</summary><div id="run-breakdown" class="small muted"></div></details><div class="metrics" id="metrics"></div><nav id="nav"></nav><section id="content"></section>
+<footer>Automatic stages · 15 search attempts maximum per run · Free-plan checks · Saved on this Mac · No email or message sending</footer></main><div id="toast" role="status"></div>
+<script>
+let state,tab='creators',busy=false;
+const $=id=>document.getElementById(id), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const parse=(s,d={})=>{try{return JSON.parse(s)||d}catch{return d}};
+const friendly=s=>String(s||'unknown').replaceAll('_',' ');
+const link=(u,label)=>/^https?:\/\//.test(u||'')?`<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(label||u)}</a>`:esc(label||'Source unavailable');
+function toast(s){$('toast').textContent=s;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',7000)}
+async function post(path,body){const r=await fetch('/api/'+path,{method:'POST',headers:{'Content-Type':'application/json','X-Nous-Request':'local-review'},body:JSON.stringify(body)});const d=await r.json();if(!r.ok)throw Error(d.error||'Request failed');return d}
+async function refresh(render=true){const r=await fetch('/api/state');state=await r.json();if(!r.ok)throw Error(state.error);$('status').textContent=state.running?'Run in progress…':(state.key_present?'SerpApi key ready · Drafts only':'Local mode · Add SerpApi key in Settings');document.querySelectorAll('button').forEach(b=>b.disabled=state.running);const latest=state.tables.run_log[0];$('progress').textContent=state.running?'Working: '+friendly(latest?.current_stage||'starting'):latest?.outcome_message||'';if(render)draw()}
+async function run(mode){try{if(['discovery','contact_lookup'].includes(mode)&&!state.key_present){openSettings();toast('Add your SerpApi key here. It stays in this app’s memory.');return}await post('run',{mode});busy=true;await refresh();toast('Run started. Results are saved as they arrive.')}catch(e){toast(e.message)}}
+function qualifiedCreator(c){return c.contact_candidate!==false&&['qualified','manually_approved'].includes(c.qualification_status)&&c.manual_decision!=='rejected'}
+function pageData(){
+ const t=state.tables,active=new Set(t.creators.filter(c=>c.contact_candidate).map(c=>c.creator_key));
+ const contacts=t.contacts.filter(c=>active.has(c.creator_key)&&c.contact_type==='email'&&c.review_status!=='rejected');
+ const emails=contacts.filter(c=>['creator','representative'].includes(c.attribution_status));
+ const usable=new Set(emails.map(c=>c.creator_key));
+ return {flagged:t.creators.filter(c=>parse(c.screening_results).competitor_bio_flags?.length),qualified:t.creators.filter(qualifiedCreator),pending:t.creators.filter(c=>c.contact_candidate&&!qualifiedCreator(c)),emails,unconfirmed:contacts.filter(c=>c.attribution_status==='unconfirmed'),messages:t.outreach_drafts.filter(d=>d.is_current&&d.channel==='instagram_message'&&!usable.has(d.creator_key))};
+}
+function creatorRecency(){const found=new Map();for(const r of state.tables.search_results){if(r.search_kind&&r.search_kind!=='discovery')continue;const time=Date.parse(r.retrieved_at)||0;if(r.identifiable_username&&time>(found.get(r.identifiable_username)||0))found.set(r.identifiable_username,time)}return found}
+function sortCreators(rows){const found=creatorRecency(),time=c=>found.get(c.username)||Date.parse(c.enriched_at)||0;return [...rows].sort((a,b)=>time(b)-time(a)||(Date.parse(b.enriched_at)||0)-(Date.parse(a.enriched_at)||0)||a.username.localeCompare(b.username))}
+function draw(){const p=pageData();$('metrics').innerHTML=`<div class="metric"><strong>${p.qualified.length}</strong><span>Qualified / approved creators</span></div><div class="metric"><strong>${p.emails.length}</strong><span>Usable public emails</span></div><div class="metric"><strong>${p.messages.length}</strong><span>Instagram message drafts</span></div>`;$('nav').innerHTML=[['creators','Qualified creators'],['emails','Emails'],['messages','Instagram messages'],['settings','Settings']].map(([k,n])=>`<button class="${tab===k?'active':''}" onclick="tab='${k}';draw()">${n}</button>`).join('');({creators:drawCreators,emails:drawEmails,messages:drawMessages,settings:drawSettings}[tab]||drawCreators)();drawRunBreakdown();document.querySelectorAll('button').forEach(b=>b.disabled=state.running)}
+function drawRunBreakdown(){const r=state.tables.run_log[0];$('run-detail').hidden=!r;if(!r)return;const skipped=parse(r.skipped_creators);$('run-breakdown').innerHTML=`<p>${r.discovery_results||0} search hits (may repeat accounts) · ${r.creators_processed||0} profiles checked · ${r.contacts_processed||0} email lookups · ${r.drafts_created||0} new drafts. These are run counts, not the total qualified shortlist.</p><p>${Object.entries(skipped).map(([k,v])=>esc(friendly(k))+': '+v).join(' · ')}</p><p>${r.requests_attempted||0}/${state.config.maxSerpApiRequestsPerRun} search attempts used. ${parse(r.errors,[]).some(e=>e.stage==='discovery_quota')?'The search limit was reached; some profiles still need checking.':''}</p><p>${state.tables.creators.length} profiles saved across all runs; ${pageData().pending.length} preliminary candidates await qualification.</p>`}
+function openSettings(){tab='settings';draw()}
+function drawCreators(){const p=pageData();$('content').innerHTML=`<p class="small muted">Most recently found first. Only creators who meet the qualification criteria or have been manually approved appear in the qualified list.</p>`+(p.qualified.length?creatorCards(sortCreators(p.qualified)):`<div class="empty"><h2>No fully qualified creators yet</h2><p>${p.pending.length} preliminary candidates await review. Finding a profile or an email does not qualify a creator.</p></div>`)+bioFlagCards(p.flagged)+(p.pending.length?`<details ${p.qualified.length?'':'open'}><summary>Awaiting qualification (${p.pending.length})</summary><p class="small muted">These accounts passed preliminary checks only. Review whether they are suitable individual creators, confirm the evidence, or reject them. They are not included in the qualified count.</p>${creatorCards(sortCreators(p.pending))}</details>`:'')}
+function bioFlagCards(rows){return rows.length?`<details open><summary class="redflag-label">Red flags — possible competitors (${rows.length})</summary><p class="small">These bios describe services that may compete with Nous. They are blocked from qualification, email research and outreach drafts. The matched wording is shown below; this rule-based flag is not a confirmed business classification.</p>${sortCreators(rows).map(c=>`<article class="row redflag"><div class="rowhead"><h2>${link(c.profile_url,'@'+c.username)}</h2><span class="redflag-label">Red flag · Not qualified</span></div><p class="small muted">${esc(c.full_name)}${c.qualification_status==='excluded_competitor'?' · Also on your explicit exclusion list':''}</p>${parse(c.screening_results).competitor_bio_flags.map(f=>`<p class="small"><strong>${esc(f.reason)}</strong></p><div class="quote">${esc(f.supporting_text)}</div>`).join('')}<p class="small">${link(c.profile_url,'Review profile bio')} · Previous approvals do not override this flag.</p></article>`).join('')}</details>`:''}
+function creatorCards(rows){const found=creatorRecency(),recent=c=>found.get(c.username)||Date.parse(c.enriched_at)||0;return rows.map(c=>{const screen=parse(c.screening_results),review=parse(c.review_json),posts=state.tables.post_evidence.filter(p=>p.creator_key===c.creator_key&&parse(c.latest_sample_json,[]).includes(p.post_id)),key=c.creator_key;return `<article class="row"><div class="rowhead"><div><h2>${link(c.profile_url,'@'+c.username)}</h2><span class="muted">${esc(c.full_name)} · ${c.followers===null?'Followers unavailable':Number(c.followers).toLocaleString()+' followers'}</span></div><span class="badge">${esc(friendly(c.qualification_status))}${c.qualification_pending?' · automatically selected for research':''}</span></div><p class="small muted">${found.has(c.username)?'Last found':'Profile updated'}: ${recent(c)?esc(new Date(recent(c)).toLocaleString()):'Date unavailable'}</p><div class="quote">${esc(c.biography||'Biography unavailable')}</div><p class="small">${esc(c.expertise||'No topic evidence yet')} · ${screen.keyword_candidate_posts||0} keyword candidates / ${screen.sample_size||0} sampled posts</p><p class="small warning">${esc(parse(c.missing_information,[]).join(' · '))}</p><details><summary>Review evidence and selection</summary><p class="small muted">Confirm substantive relevance by reading captions and sources. A keyword match alone does not qualify a post. Creator location does not establish UK audience geography.</p>${posts.map(p=>`<div class="post"><label><input type="checkbox" class="relevant-${key}" value="${esc(p.post_id)}" ${review.relevant_post_ids?.includes(p.post_id)?'checked':''}>Substantively relevant · ${link(p.post_url,'Open post')}</label><div class="quote">${esc(p.caption||'Caption unavailable')}</div><span class="small muted">${esc(parse(p.matched_topics,[]).join(', '))} · Timestamp: ${esc(p.available_timestamp||'unknown')}</span></div>`).join('')}${state.config.requireLatest20Posts!==false?`<label><input id="latest-${key}" type="checkbox" ${review.latest_post_ids?.length===20?'checked':''}>I verified that this sample covers the latest 20 posts</label><label for="chrono-${key}">Chronological coverage evidence (source and explanation)</label><textarea id="chrono-${key}">${esc(review.chronological_evidence||'')}</textarea>`:'<p class="small muted">Latest-20-post review is currently skipped. Qualification uses available biography/post relevance, follower range and UK suitability.</p>'}<label><input id="uk-${key}" type="checkbox" ${review.uk_suitability?'checked':''}>Content is suitable for UK households</label><label for="ukevidence-${key}">UK suitability evidence</label><textarea id="ukevidence-${key}">${esc(review.uk_evidence||'')}</textarea><label for="decision-${key}">Selection</label><select id="decision-${key}"><option value="">Use the evidence-based qualification criteria</option><option value="approved" ${c.manual_decision==='approved'?'selected':''}>Manually approve for outreach</option><option value="rejected" ${c.manual_decision==='rejected'?'selected':''}>Reject</option></select><label for="notes-${key}">Reviewer notes (required for manual approval)</label><textarea id="notes-${key}">${esc(c.reviewer_notes)}</textarea><button onclick="saveCreator('${key}')">Save review</button></details><div class="small muted">Email lookup: ${esc(friendly(c.contact_lookup_status))}</div></article>`}).join('')}
+async function saveCreator(key){try{const c=state.tables.creators.find(c=>c.creator_key===key);await post('creator',{key,changes:{manual_decision:$('decision-'+key).value,reviewer_notes:$('notes-'+key).value,review_json:{relevant_post_ids:[...document.querySelectorAll('.relevant-'+key+':checked')].map(e=>e.value),latest_post_ids:$('latest-'+key)?($('latest-'+key).checked?parse(c.latest_sample_json,[]):[]):parse(c.review_json).latest_post_ids||[],chronological_evidence:$('chrono-'+key)?.value??parse(c.review_json).chronological_evidence??'',uk_suitability:$('uk-'+key).checked,uk_evidence:$('ukevidence-'+key).value}}});await refresh();toast('Review saved. Use Process saved creators for selected creators.')}catch(e){toast(e.message)}}
+function draftActions(){return `<div class="actions"><button class="secondary" onclick="run('draft_generation')">Generate from saved data</button><a class="button secondary" href="/api/export" download="nous-collaboration-drafts.csv">Export all outreach CSV</a></div>`}
+function drawEmails(){const p=pageData(),byCreator=new Map(sortCreators(state.tables.creators).map((c,i)=>[c.creator_key,i]));const sorted=rows=>[...rows].sort((a,b)=>byCreator.get(a.creator_key)-byCreator.get(b.creator_key));$('content').innerHTML=draftActions()+`<p class="small muted">Each public business email and its collaboration draft, newest creators first. Pending qualification is labelled.</p>`+(p.emails.length?contactCards(sorted(p.emails)):'<div class="empty"><h2>No usable public emails yet</h2><p>Creators without a usable email appear under Instagram messages once lookup has been attempted.</p></div>')+(p.unconfirmed.length?`<details><summary>Emails needing attribution review (${p.unconfirmed.length})</summary><p class="small muted">These addresses are not yet usable for email drafting.</p>${contactCards(sorted(p.unconfirmed))}</details>`:'')}
+function contactCards(rows){return rows.map(c=>{const creator=state.tables.creators.find(x=>x.creator_key===c.creator_key);return `<article class="row"><div class="rowhead"><div><h2>@${esc(creator?.username)}</h2><div class="email">${esc(c.contact_value)}</div></div><span class="badge">${creator?.qualification_pending?'Qualification pending · ':''}${esc(friendly(c.review_status))}</span></div><p class="small">${link(c.source_url,'View public source')} · Attribution: ${esc(friendly(c.attribution_status))}</p><div class="quote">${esc(c.supporting_text)}</div><details><summary>Review email attribution</summary><div class="fields"><div><label>Belongs to</label><select id="attribution-${c.contact_key}">${['unconfirmed','creator','representative'].map(v=>`<option value="${v}" ${v===c.attribution_status?'selected':''}>${friendly(v)}</option>`).join('')}</select></div><div><label>Contact review</label><select id="contactstate-${c.contact_key}">${['discovered','human_confirmed','approved','rejected'].map(v=>`<option value="${v}" ${v===c.review_status?'selected':''}>${friendly(v)}</option>`).join('')}</select></div></div><label>Representative name, if explicitly known (optional)</label><input id="name-${c.contact_key}" value="${esc(c.recipient_name)}"><p class="small muted">Publicly listed does not mean deliverability is verified. Search-only evidence needs human attribution before drafting.</p><button onclick="saveContact('${c.contact_key}')">Save contact review</button></details>${state.tables.outreach_drafts.filter(d=>d.is_current&&d.channel==='email'&&d.contact_key===c.contact_key).map(d=>draftCard(d,false)).join('')||'<p class="small muted">No current email draft. Confirm attribution if needed, then generate from saved data.</p>'}</article>`}).join('')}
+async function saveContact(key){try{const attribution=$('attribution-'+key).value;await post('contact',{key,changes:{attribution_status:attribution,recipient_role:attribution,review_status:$('contactstate-'+key).value,recipient_name:$('name-'+key).value}});await refresh();await run('draft_generation');toast('Contact saved. Updating the outreach draft automatically.')}catch(e){toast(e.message)}}
+function drawMessages(){const p=pageData(),byCreator=new Map(sortCreators(state.tables.creators).map((c,i)=>[c.creator_key,i]));const rows=[...p.messages].sort((a,b)=>byCreator.get(a.creator_key)-byCreator.get(b.creator_key));$('content').innerHTML=draftActions()+`<p class="small muted">For creators without a usable email after lookup was attempted. Copy a message and send it manually on Instagram. Lookup failures and quota limits are labelled; they do not prove an email is unavailable.</p>`+(rows.length?rows.map(d=>draftCard(d)).join(''):'<div class="empty"><h2>No Instagram message drafts yet</h2><p>The workflow creates one when an eligible creator has no usable email after an attempted lookup.</p></div>')}
+function draftCard(d,standalone=true){const c=state.tables.creators.find(c=>c.creator_key===d.creator_key);const contact=state.tables.contacts.find(x=>x.contact_key===d.contact_key);const message=d.channel==='instagram_message';const stale=!d.is_current;const provisional=!!c?.qualification_pending;return `${standalone?'<article class="row">':'<section>'}<div class="rowhead"><div><h2>@${esc(c?.username)}</h2><span class="muted">${message?'Instagram message · '+link(c?.profile_url,'@'+c?.username):'Email to: '+esc(d.recipient_email)}</span></div><span class="badge">${provisional?'Provisional · ':''}${esc(friendly(d.draft_status))}${d.manually_edited?' · protected':''}</span></div>${provisional?'<p class="warning">Qualification pending. This is a provisional draft; review creator suitability before outreach.</p>':''}${stale?'<p class="warning">This draft is no longer the current outreach option. A usable email may now be available, or the creator/contact was excluded. Retained for history; excluded from export.</p>':''}${message?'':`<label>Subject</label><input id="subject-${d.draft_key}" value="${esc(d.subject)}">`}<label>${message?'Instagram message draft · send manually':'Email draft'}</label><textarea class="draftbody" id="body-${d.draft_key}">${esc(d.draft_body)}</textarea><div class="actions"><button class="secondary" onclick="copyDraft('${d.draft_key}')">Copy ${message?'message':'email'}</button>${message?link(c?.profile_url,'Open Instagram profile'):''}</div><p class="small warning">${esc(parse(d.missing_information,[]).join(' · '))}</p><details><summary>Personalisation evidence</summary><pre>${esc(JSON.stringify(parse(d.expertise_reference),null,2))}</pre>${parse(d.evidence_urls_json,[]).map(u=>`<p class="small">${link(u)}</p>`).join('')}<p class="small">Approved claims: ${esc(parse(d.product_facts_used_json,[]).join(' '))}</p></details><div class="fields"><select id="draftstate-${d.draft_key}">${['needs_review','approved','rejected'].map(v=>`<option value="${v}" ${v===d.draft_status?'selected':''}>${friendly(v)}</option>`).join('')}</select><button onclick="saveDraft('${d.draft_key}')">Save draft edits</button></div>${standalone?'</article>':'</section>'}`}
+async function copyDraft(key){try{await navigator.clipboard.writeText($('body-'+key).value);toast('Draft copied. Send it manually when ready.')}catch(e){$('body-'+key).select();toast('Select and copy the draft text.')}}
+async function saveDraft(key){try{await post('draft',{key,changes:{subject:$('subject-'+key)?.value||'',draft_body:$('body-'+key).value,draft_status:$('draftstate-'+key).value}});await refresh();toast('Draft saved and protected from automatic replacement.')}catch(e){toast(e.message)}}
+// Related-query suggestions are local rules; typing never performs a search.
+function normaliseQuery(value){return value.trim().replace(/\s+/g,' ').toLowerCase()}
+function keywordSuggestions(text){
+ const lines=text.split('\n').map(s=>s.trim()).filter(Boolean), existing=new Set(lines.map(normaliseQuery)), suggestions=[], seen=new Set();
+ const groups=[
+  [/\b(pet|pets|dog|dogs|cat|cats|vet|vets|veterinary)\b/i,['pet insurance','vet bills','vet fees','dog insurance','cat insurance','pet insurance reviews','pet insurance claims']],
+  [/\b(travel|holiday|holidays|trip|trips|staycation)\b/i,['travel insurance','holiday insurance','travel insurance reviews','travel insurance claims','annual travel insurance','family travel insurance']],
+  [/\b(car|cars|motor|driving|vehicle)\b/i,['car insurance','car insurance renewal','car insurance comparison','car insurance costs','car insurance claims']],
+  [/\b(home|house|contents|buildings|renters)\b/i,['home insurance','contents insurance','buildings insurance','home insurance renewal','home insurance claims']],
+  [/\blife insurance\b/i,['life insurance','life cover','family protection','life insurance reviews']],
+  [/\b(health|medical|dental)\b/i,['health insurance','private medical insurance','dental insurance','health insurance reviews']],
+  [/\b(budget|budgeting|saving|savings|money|frugal|finance)\b/i,['family budgeting','money saving tips','household bills','cost of living','budgeting tips']],
+  [/\b(energy|electricity|gas|utility|utilities)\b/i,['energy bills','energy saving tips','energy tariffs','switching energy supplier']],
+  [/\b(broadband|internet|wifi)\b/i,['broadband deals','broadband bills','switching broadband','broadband reviews']],
+  [/\b(subscription|subscriptions|admin|organisation|organization)\b/i,['household admin','subscription costs','cancel subscriptions','household organisation']]
+ ];
+ for(const line of lines){
+  const site=line.match(/\bsite:[^\s"']+/i)?.[0]||'site:instagram.com';
+  const country=/\bUK\b|United Kingdom/i.test(line)?' "UK"':'';
+  const topic=line.replace(/\b(?:site|inurl|intitle):[^\s]+/gi,' ').replace(/"United Kingdom"|\bUnited Kingdom\b|\bUK\b/gi,' ').replace(/["“”]/g,' ').replace(/\s+/g,' ').trim();
+  if(!topic)continue;
+  const matched=groups.filter(([pattern])=>pattern.test(topic));
+  const broader=topic.replace(/\b(recommendations?|recommended|recommend|best|reviews?|advice)\b/gi,' ').replace(/\s+/g,' ').trim();
+  if(!matched.length && !broader)continue;
+  const terms=matched.length?matched.flatMap(([,terms])=>terms):[broader,broader+' reviews',broader+' tips',broader+' experiences'];
+  for(const keyword of terms){
+   if(!keyword || keyword.length>100)continue;
+   const query=site+country+' "'+keyword+'"',key=normaliseQuery(query);
+   if(existing.has(key)||seen.has(key))continue;
+   seen.add(key);suggestions.push({keyword,query});
+  }
+ }
+ return suggestions.slice(0,10);
+}
+function queryWithSuggestion(text,query){
+ const lines=text.split('\n').map(s=>s.trim()).filter(Boolean);
+ if(lines.some(line=>normaliseQuery(line)===normaliseQuery(query)))return {error:'That query is already included.'};
+ if(lines.length>=5)return {error:'Five queries are already selected. Remove one before adding another.'};
+ return {value:[...lines,query].join('\n')};
+}
+let relatedQueries=[];
+function drawKeywordSuggestions(){
+ const area=$('queries'),box=$('related-keywords');if(!area||!box)return;
+ relatedQueries=keywordSuggestions(area.value);
+ const count=area.value.split('\n').filter(s=>s.trim()).length;
+ box.innerHTML=`<h3>Related keywords</h3><p class="small muted">Suggestions update as you type. Click a keyword to add a search query, then save settings. ${count}/5 queries selected.</p>${relatedQueries.length?`<div class="actions">${relatedQueries.map((s,i)=>`<button type="button" class="secondary" title="${esc(s.query)}" onclick="addRelatedQuery(${i})" ${state.running?'disabled':''}>+ ${esc(s.keyword)}</button>`).join('')}</div>`:'<p class="small muted">Enter a topic such as pet insurance to see related searches.</p>'}`;
+}
+function addRelatedQuery(index){
+ const suggestion=relatedQueries[index];if(!suggestion||state.running)return;
+ const result=queryWithSuggestion($('queries').value,suggestion.query);
+ if(result.error){toast(result.error);return}
+ $('queries').value=result.value;drawKeywordSuggestions();toast('Query added. Save settings to use it in your next run.');
+}
+function drawSettings(){const c=state.config;$('content').innerHTML=`
+<p class="muted">Set what to search for, which profiles to consider and what the outreach drafts may say. Save your changes below, then choose the action you want to run.</p>
+<div class="grid">
+<section class="row"><h2>Connect SerpApi</h2><p class="small">Connects the service that searches Google and retrieves Instagram profiles. A key is required for new searches and email research. The app checks your free-plan allowance before collection.</p>
+<label for="api-key">SerpApi key</label><input id="api-key" type="password" autocomplete="off" placeholder="${state.key_present?'Key is already set':'Paste key locally'}"><p><button onclick="saveKey()">Use key for this session</button></p><p class="small muted">This button loads the key only; it does not start a run. The key stays in memory until the app stops and is never saved in your settings or database.</p><p class="small warning">n8n and this app share the account allowance if they use the same key. Avoid running collection in both at once.</p></section>
+<section class="row"><h2>Sender & approved claims</h2><p class="small">Controls the signature and Nous description in generated drafts. These fields do not change who is found in searches.</p>
+<label for="senderName">Sender name</label><input id="senderName" value="${esc(c.senderName)}"><p class="small muted">Your name in email and Instagram-message signatures. Leave blank to keep a sender-name placeholder.</p>
+<label for="senderRole">Sender role</label><input id="senderRole" value="${esc(c.senderRole)}"><p class="small muted">Your role in the email signature. Leave blank to keep a role placeholder.</p>
+<label for="brief">Approved product brief (up to 25 words)</label><textarea id="brief">${esc(c.approvedProductBrief)}</textarea><p class="small muted">The short, confirmed description of Nous used in both email and Instagram drafts. This field is required.</p>
+<label for="facts">Approved product facts (one per line, up to 20 words each)</label><textarea id="facts">${esc(c.approvedProductFacts.join('\n'))}</textarea><p class="small muted">Optional confirmed claims the email draft can use. The current template uses the first fact; Instagram messages use the product brief only.</p></section>
+</div>
+<section class="row"><h2>Collection limits</h2><p class="small">Sets the follower range and how much work a run may attempt. Finding a profile does not mean it meets your criteria, and the request cap can stop collection before the profile limit is reached.</p><div class="fields">${[
+ ['minFollowers','Minimum followers','Lowest follower count accepted by the automatic range check. The boundary is included.'],
+ ['maxFollowers','Maximum followers','Highest follower count accepted by the automatic range check. Above-range profiles are excluded from automatic outreach research.'],
+ ['maxProfilesPerRun','Profiles per run','Maximum profiles to check and maximum eligible creators to research for emails in one run (1–50). This is a limit, not a promised number of qualified leads.'],
+ ['maxSerpApiRequestsPerRun','Search request cap (maximum 15)','Shared limit for discovery, post-author searches, profiles, extra post pages, email searches and retries. For example, 5 discovery queries can use 5 attempts before profiles are checked.']
+].map(([k,label,help])=>`<div><label for="${k}">${label}</label><input type="number" id="${k}" value="${c[k]}" aria-describedby="help-${k}"><p id="help-${k}" class="small muted">${help}</p></div>`).join('')}</div><p class="small muted">Free account checks are tracked separately. Increasing Profiles per run does not increase the search-request cap. Manual approval can override the follower range, but never competitor exclusions or bio red flags.</p></section>
+<section class="row"><h2>Discovery queries & related keywords</h2><p class="small">Controls which topics the next full workflow searches for. Use one Google query per line, up to five. <code>site:instagram.com</code> restricts results to Instagram; quoted phrases request exact wording, so a long quoted phrase can return very few results.</p><label for="queries">Discovery queries (one per line, maximum five)</label><textarea id="queries" oninput="drawKeywordSuggestions()" aria-describedby="related-keywords">${esc(c.queries.join('\n'))}</textarea><div id="related-keywords" class="keyword-box"></div><p class="small muted">Related keywords are suggested automatically from your text and use no search credits. Click one to add a query; it will be searched only after you save and run the full workflow. Changing queries does not remove previously saved creators.</p></section>
+<section class="row"><h2>Competitors & excluded accounts</h2><p class="small">Keep competing brands or other unwanted accounts out of this campaign. Excluded accounts are skipped before profile collection, email research and drafting, even if they match your keywords or were previously approved.</p><label for="excludedUsernames">Excluded Instagram handles (one per line)</label><textarea id="excludedUsernames" placeholder="@avivauk&#10;@welcometouw">${esc((c.excludedUsernames||[]).map(n=>'@'+n).join('\n'))}</textarea><p class="small muted">Enter exact handles or Instagram profile URLs, up to 200. For example, @avivauk excludes Aviva UK and @welcometouw excludes Utility Warehouse. Matching is case-insensitive and applies to that account only, not creators discussing the company. Other brand accounts must be added separately.</p><p class="small muted">Save settings to apply exclusions to saved results immediately. Their emails and drafts disappear from the active pages and export; saved evidence and edits remain in the database. Remove a handle and save to reconsider it under the current qualification rules.</p></section><section class="row"><h2>Qualification & outreach</h2><p class="small"><strong>Competitor bio check — always applied.</strong> Bios presenting insurance/utility providers, bill-management services or similar competing offers receive a red flag and cannot qualify or receive outreach drafts, even if previously approved. Independent advice, reviews and personal experiences are not flagged just for mentioning those topics. See the matching bio text under Red flags — possible competitors on Qualified creators. This is a rule-based screen, so unfamiliar wording may still need review.</p><label><input type="checkbox" id="requireLatest20Posts" ${c.requireLatest20Posts!==false?'checked':''}>Require review of the latest 20 posts</label><p class="small muted">Off: skip latest-20 coverage and the five-relevant-post minimum. Use available biography/post evidence, the follower range and supported UK suitability instead. No extra post page is requested to fill a 20-post sample. On: require verified latest-20 coverage and at least five substantively relevant posts. Save changes to reassess stored profiles. Use Generate from saved data to refresh unprotected drafts.</p><p class="small">${c.requireLatest20Posts===false?'Currently skipped. Profiles are no longer held back by the 20-post rule. UK suitability still needs supporting evidence.':'Currently required. Confirm post relevance and chronological coverage in each creator’s review.'} Review evidence on Qualified creators, or manually approve with a reason.</p><p class="small">Promising profiles can proceed to email research before that review is complete; their drafts remain labelled provisional. A usable email produces an email draft. If lookup finds no usable email, fails or reaches quota, an Instagram message draft is created with the reason shown. Nothing is sent automatically.</p></section>
+<section class="row"><h2>Save settings & choose what runs</h2><p class="small">Save settings stores your sender details, claims, limits and queries on this Mac. It reapplies screening and exclusion rules to saved evidence immediately. It does not start a search, fetch profiles or rewrite drafts.</p><button onclick="saveConfig()">Save settings</button><dl class="small"><dt><strong>Run full workflow</strong></dt><dd>Searches the saved queries, identifies and checks profiles, then researches emails and creates email or Instagram-message drafts for eligible candidates.</dd><dt><strong>Process saved creators</strong></dt><dd>Uses existing profile evidence, applies the saved screening settings, researches emails and creates drafts. It does not search the discovery queries or refresh profile data.</dd><dt><strong>Generate from saved data</strong></dt><dd>Available on Emails and Instagram messages. Reassesses stored evidence and updates unprotected drafts using your saved sender details and claims, with no external searches. Manually edited, approved or rejected drafts are preserved.</dd></dl></section>`;drawKeywordSuggestions()}
+async function saveKey(){try{await post('key',{key:$('api-key').value});$('api-key').value='';await refresh(false);$('api-key').placeholder='Key is already set';toast('Key loaded into memory. No collection has started.')}catch(e){toast(e.message)}}
+async function saveConfig(){try{const c={...state.config};for(const k of ['minFollowers','maxFollowers','maxProfilesPerRun','maxSerpApiRequestsPerRun'])c[k]=Number($(k).value);c.excludedUsernames=$('excludedUsernames').value.split('\n').map(s=>s.trim()).filter(Boolean);c.requireLatest20Posts=$('requireLatest20Posts').checked;c.senderName=$('senderName').value;c.senderRole=$('senderRole').value;c.approvedProductBrief=$('brief').value;c.approvedProductFacts=$('facts').value.split('\n').map(s=>s.trim()).filter(Boolean);c.queries=$('queries').value.split('\n').map(s=>s.trim()).filter(Boolean);await post('config',c);await refresh();toast('Settings saved. Choose Run full workflow to search with these queries.')}catch(e){toast(e.message)}}
+refresh().catch(e=>toast(e.message));setInterval(async()=>{if(state?.running||busy){try{await refresh(false);if(!state.running){busy=false;draw();toast(state.last_run?.outcome_message||'Run finished. Check results and run history.')}}catch(e){toast(e.message)}}},2000);
+</script></body></html>

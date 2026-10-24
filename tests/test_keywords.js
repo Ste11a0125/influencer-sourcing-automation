@@ -1,0 +1,30 @@
+// Run with node tests/test_keywords.js. No network or live settings changes.
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const html=fs.readFileSync(require('node:path').join(__dirname,'../index.html'),'utf8');
+const script=html.split('<script>')[1].split('</script>')[0];
+new vm.Script(script); // Verify the complete UI script parses.
+const code=script.slice(script.indexOf('function normaliseQuery'),script.indexOf('let relatedQueries'));
+const ctx=vm.createContext({});vm.runInContext(code,ctx);
+const suggest=ctx.keywordSuggestions,add=ctx.queryWithSuggestion;
+const pet='site:instagram.com "UK" "pet insurance recommendation"';
+const list=suggest(pet);
+assert(list.some(s=>s.keyword==='vet bills'));
+assert(list.some(s=>s.query==='site:instagram.com "UK" "pet insurance"'));
+assert(list.every(s=>s.query.startsWith('site:instagram.com "UK"')));
+assert(!list.some(s=>s.keyword.includes('travel')));
+assert(suggest('pet insurance').some(s=>s.query==='site:instagram.com "vet bills"'));
+assert(suggest('travel insurance').some(s=>s.keyword==='holiday insurance'));
+assert(suggest('broadband reviews').some(s=>s.keyword==='broadband deals'));
+assert(suggest('baking recommendations').some(s=>s.keyword==='baking'));
+assert.equal(suggest('').length,0);
+assert.equal(suggest('site:instagram.com "UK"').length,0);
+assert.equal(suggest('recommendations').length,0);
+const added=add(pet,list[0].query);
+assert.equal(added.value.split('\n').length,2);
+assert(!suggest(added.value).some(s=>s.query===list[0].query));
+assert(add(added.value,list[0].query).error);
+assert(add('one\ntwo\nthree\nfour\nfive',list[0].query).error);
+const duplicate=suggest(pet+'\n'+pet);
+assert.equal(new Set(duplicate.map(s=>s.query)).size,duplicate.length);
+assert(suggest('travel insurance\npet insurance\nhome insurance').length<=10);
+console.log('Keyword suggestions verified: topic expansion, query context, empty input, duplicates, five-query cap and UI syntax.');

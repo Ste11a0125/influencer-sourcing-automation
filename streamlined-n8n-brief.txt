@@ -1,0 +1,64 @@
+Build “Nous UK Creator Discovery and Collaboration Emails” in n8n Cloud.
+
+PRIMARY OUTPUT
+A reviewable shortlist of qualified Instagram creators, their publicly listed business emails, and personalised collaboration EMAIL drafts, with Instagram message drafts when no usable email is available. Store everything in n8n Data Tables. Do not send anything or create Gmail drafts.
+
+BUDGET AND DEFAULTS
+£0 additional spend. Use SerpApi's free plan, existing n8n allowance, native nodes and rule-based Code-node templates. No paid AI APIs, Apify, Google Sheets or external databases.
+Manual trigger. Editable defaults: UK; 10,000–100,000 followers inclusive; 5 profiles per test run; sample target 20 unique posts; 5 substantive relevant posts required; 15 total SerpApi search attempts per run; blank sender name/role; approved brief “Nous helps UK households manage insurance admin.”; optional confirmed product facts.
+Keep the key in n8n credentials. Never save keys, raw account responses or credential-bearing URLs.
+Check Account API for an active zero-price plan and sufficient free monthly/hourly allowance before collection. Recheck before search attempts. Share the 15-attempt cap across searches, profile requests, pagination, contact searches and retries. Count failed attempts. Track free Account API checks separately. Use finite timeouts and at most one transient retry. Stop/defer on quota exhaustion. If this account is also used by a fallback, avoid simultaneous collection runs.
+
+1. DISCOVER AND SAVE
+One Google page for each query, with UK/English settings:
+site:instagram.com "UK" "family budgeting"
+site:instagram.com "UK" "money saving"
+site:instagram.com "UK" "household bills"
+site:instagram.com "UK" "insurance renewal"
+site:instagram.com "UK" "life admin"
+Immediately upsert normalised search results BEFORE enrichment. Deduplicate by query + canonical URL. Extract handles only from unambiguous profile URLs; retain unresolved post links for review. Exclude reserved Instagram paths.
+
+2. QUALIFY WITH EVIDENCE
+Use engine=instagram_profile and profile_id=username. Read profile_results: identity, biography, numeric followers, bio_links and posts[].media_captions. Keep saved evidence links. For in-range profiles, collect up to 20 unique posts with at most one additional page using serpapi_pagination.next_page_token.
+Screen for insurance/renewals, family budgeting/saving, household bills/contracts, home ownership, subscriptions, document organisation/life admin and parenting mental load.
+Keywords identify candidates for review, not substantive relevance. Qualification requires the follower range, at least five relevant posts among the latest 20, and supported UK-household suitability. Do not call the sample “latest 20” without evidence. Missing criteria go to review. Support an explicit manual approval with reviewer notes and preserve it during reruns. Keep manual approval distinct from evidence-qualified status. Do not infer audience geography from creator location.
+
+3. FIND A BUSINESS EMAIL
+Research qualified/manually approved creators AND promising in-range candidates with saved relevant biography or caption evidence, even while final qualification is pending. Explicitly rejected profiles stay excluded. Missing follower counts or out-of-range followers require review/manual approval. Keep qualification status unchanged during contact research. Start with a suitable saved email and then the biography. STOP additional collection once a suitably attributed email exists.
+If unresolved, fetch publicly accessible bio links and clearly linked Contact / Work With Me / Management pages. Maximum FOUR public-page requests per creator, including redirects; stop early when successful. Collect business and representative emails with exact supporting text and source URL. Identify creator versus representative. Ignore privacy, support and vendor addresses. Do not invent names or email addresses.
+If still unresolved, permit ONE targeted SerpApi search using the handle and business enquiries / collaborations / management within the shared cap. Search-snippet-only evidence stays unconfirmed. Keep discovered, human-confirmed, approved and rejected contact states distinct. Syntax does not establish ownership or deliverability. Record found / no email / retrieval failed / deferred by quota.
+
+4. DRAFT A COLLABORATION EMAIL
+Read saved biography and post evidence. Use an exact, relevant reference and topic-specific rule-based wording. Budgeting, insurance and household-organisation creators should get distinct openings and potential audience-benefit framing.
+Use only the approved product brief/facts for Nous claims. Never invent savings, coverage, pricing, partnerships, credentials, audience demographics or claims to have watched unavailable videos.
+For each suitable attributable business email belonging to an eligible research candidate, save a concise subject and approximately 100–150-word email: supported personalisation, potential relevance to followers, a possible paid partnership without promised fees/terms, and a question about discussing collaboration. Address management appropriately and name the creator. Use sender placeholders until supplied. Set needs_review and retain evidence links, product facts used and missing-information flags. If creator qualification is pending, visibly mark the draft provisional and include qualification_pending in exports. Never treat finding an email as approving the creator.
+If lookup finds no usable email, fails, reaches quota, or leaves attribution unconfirmed, automatically create a 50–80-word Instagram message draft. Reference saved biography/caption evidence, use only approved product claims, describe potential relevance, and ask whether they are open to a paid partnership and which business email to use. Save channel=instagram_message, no invented email, and needs_review. Label pending qualification and the actual lookup reason. Do not claim no email exists after a failed lookup. Never send the message. Preserve edited messages; if a usable email later appears, retain the message as history and make the email the current outreach option. Never overwrite manually edited or approved drafts.
+
+MINIMUM PERSISTENCE
+Use Data Table nodes for reads/writes and Code nodes for transformations. Preserve the existing six categories if already created: search_results, creators, post_evidence, contacts, outreach_drafts, run_log. Store the fields needed for identity, qualification evidence, manual decisions, contact source/attribution, drafts, and counts/errors. Use stable IDs and upserts; reconcile username records when an Instagram ID arrives. Nested evidence can be serialised JSON.
+
+RERUNS
+Keep modes discovery, contact_lookup, draft_generation and replay. Contact lookup/drafting must use stored eligible research candidates without rerunning discovery. Draft generation and replay must make no external collection requests. Replay reassesses saved evidence and drafts only.
+
+REMOVE
+No weighted ranking model, audience-demographic enrichment, engagement analysis, partnership-history research, contact-form collection, automatic sending or scheduled monitoring. Order the review queue by relevant topic evidence and completeness only.
+
+VERIFY
+Test saving before enrichment, duplicate-free reruns, preservation of human decisions and edited drafts, follower boundaries, uncertain qualification staying in review, email attribution, distinct evidence-backed email templates, no-address behavior, offline replay and the shared request cap. State exactly what was executed and what needs a live credential test. Start with five profiles; do not report live success without running it.
+
+Report contact candidates, creators actually checked, and skip reasons. If no candidates qualify for contact research, say no_candidates / no email lookup attempted. Do not report an empty lookup as a successful contact search.
+
+AUTOMATIC STAGE CHAIN
+A single manual trigger runs discovery -> evidence-based screening -> contact lookup -> email draft OR Instagram message draft. No intermediate approval pauses are required for promising in-range candidates; final qualification uncertainty remains labelled. Draft each creator immediately after lookup. Quota exhaustion during discovery must not discard stored leads or prevent a properly labelled message fallback. Export both channels with qualification flags and exclude superseded messages when an email becomes available. Keep offline replay and stored-lead continuation.
+
+POST/REEL AUTHOR RESOLUTION
+For current discovery hits that link to /p/, /reel/ or /tv/, identify the actual creator from explicit exact-post owner metadata, author links or indexed author/source attribution. Do not infer an author from the shortcode, caption tags or commenters. Keep author evidence with the result; conflicting or inaccessible authors stay unresolved. Resolve at most min(profile limit, 10) unique posts per run, with at most two public-page requests each, counting redirects; never follow login redirects. Where needed allow one exact-post Google search, at most three per run, within the shared cap and only if more than two search attempts remain. Deduplicate resolved creator handles, then enrich profiles and continue screening, email lookup and drafting. Skip topic pages such as /popular/. Full discovery must process its current results, not every historical lead; keep old leads available through stored-lead continuation. Record query snapshots, raw discovery results, resolved author counts and unresolved reasons in the UI/run log.
+
+CURRENT QUALIFICATION OVERRIDE
+Temporarily set requireLatest20Posts=false. Skip verified newest-20 coverage and the five-relevant-post minimum. Keep configured follower bounds, available relevant biography/post evidence and supported UK household suitability; preserve manual approvals/rejections. Do not fetch an extra post page solely to reach 20. Preserve old evidence and allow strict qualification to be restored via a setting. Reassess saved candidates offline after changing it.
+
+COMPETITOR EXCLUSIONS
+Add editable excludedUsernames with avivauk and welcometouw. Match exact normalised Instagram handles (accept @handles/profile URLs); never exclude independent creators just because a caption mentions a competitor. Keep discovery evidence but skip excluded accounts before profile enrichment, contacts and drafting. Exclusion overrides approval without erasing it. Suppress existing excluded contacts/drafts from active views and exports, preserving history and edits. Reassess saved evidence when exclusions are added or removed.
+
+AUTOMATIC COMPETITOR-BIO GATE
+Inspect each available biography for explicit competing provider claims (insurance broker/provider, utility supplier, bill/admin management services, bundled household services, direct insurance offerings, corporate financial-service catalogues). Distinguish provider self-description from independent reviews/advice/personal experiences. Save the matching bio text, reason and profile URL as a possible-competitor red flag; do not assert definitive classification. Flagged accounts cannot qualify, override via old approval, receive email research or produce current email/Instagram drafts. Keep existing edits as history. Show flags separately from qualified creators. Reassess saved profiles and apply the gate consistently across discovery, stored-lead continuation, replay and export.
